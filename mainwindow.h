@@ -6,6 +6,7 @@
 #include <QCameraViewfinder>
 #include <QCameraImageCapture>
 #include <QFileDialog>
+#include "showimagewindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,11 +25,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+public slots:
     void captureImage();
     void displayImage(int,QImage);
     void saveImage();
 
+signals:
+    void sendImage(QImage);
 
 
 private:
@@ -37,6 +40,7 @@ private:
     QCamera *camera;
     QCameraViewfinder *viewfinder;
     QCameraImageCapture *imageCapture;
+    ShowImageWindow *showImageWindow;
 
 };
 #endif // MAINWINDOW_H

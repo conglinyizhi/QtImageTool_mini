@@ -11,10 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     viewfinder=new QCameraViewfinder(this);
     imageCapture=new QCameraImageCapture(camera);
 
+
 //    viewfinder->setGeometry(frameGeometry());
 //    viewfinder->setStyleSheet(QString("background:#6cf"));
-    ui->view->addWidget(viewfinder);
-    camera->setViewfinder(viewfinder);
+//    ui->view->addWidget(viewfinder);
+    camera->setViewfinder(ui->widget);
     camera->start();
 
     connect(imageCapture, SIGNAL(imageCaptured(int,QImage)), this, SLOT(displayImage(int,QImage)));
@@ -30,29 +31,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::captureImage()
 {
-//ui->statusBar->showMessage(tr("capturing..."), 1000);
 
 imageCapture->capture();
 }
 
 void MainWindow::displayImage(int , QImage image)
 {
-ui->ImageCapture->setPixmap(QPixmap::fromImage(image));
-//ui->ImageView->setPixmap(QPixmap::fromImage(image));
-//ui->statusBar->showMessage(tr("capture OK!"), 5000);
+    showImageWindow = new ShowImageWindow();
+    showImageWindow->show();
+    connect(this,SIGNAL(sendImage(QImage)),showImageWindow,SLOT(getImage(QImage)));
+    emit sendImage(image);
+    disconnect(this,SIGNAL(sendImage(QImage)),showImageWindow,SLOT(getImage(QImage)));
 }
 
 void MainWindow::saveImage()
 {
-QString fileName=QFileDialog::getSaveFileName(this, tr("save file"), QDir::homePath(), tr("jpegfile(*.jpg)"));
-if(fileName.isEmpty()) {
-//ui->statusBar->showMessage(tr("save cancel"), 5000);
-return;
-}
-const QPixmap* pixmap=ui->ImageCapture->pixmap();
-if(pixmap) {
-pixmap->save(fileName);
-//ui->statusBar->showMessage(tr("save OK"), 5000);
-}
+//QString fileName=QFileDialog::getSaveFileName(this, tr("save file"), QDir::homePath(), tr("jpegfile(*.jpg)"));
+//if(fileName.isEmpty()) {
+// //ui->statusBar->showMessage(tr("save cancel"), 5000);
+//return;
+//}
+//const QPixmap* pixmap=ui->ImageCapture->pixmap();
+//if(pixmap) {
+//pixmap->save(fileName);
+// //ui->statusBar->showMessage(tr("save OK"), 5000);
+//}
 }
 
