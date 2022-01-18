@@ -41,8 +41,12 @@ void MainWindow::displayImage(int , QImage image)
     showImageWindow = new ShowImageWindow();
     showImageWindow->show();
     connect(this,SIGNAL(sendImage(QImage,int)),showImageWindow,SLOT(getImage(QImage,int)));
-    if(ui->ImageCheckbox_Negative->isChecked()){
+    if(ui->ImageRadio_Negative->isChecked()){
         emit sendImage(image,1);
+    }else if(ui->ImageRadio_gray->isChecked()){
+        emit sendImage(image,2);
+    }else if(ui->ImageRadio_test->isChecked()){
+        emit sendImage(image,3);
     }else{
         emit sendImage(image,0);
     }
