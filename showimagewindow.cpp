@@ -36,83 +36,73 @@ double ShowImageWindow::ImageKerCalculator(QImage t_img,
 
 void ShowImageWindow::getImage(QImage image, int ImageSign) {
     img = image;
-    switch (ImageSign) {
-        case 1:  // 负片
-            for (long int y = 0; y < img.height(); y++) {
-                for (long int x = 0; x < img.width(); x++) {
-                    QColor getColor = img.pixelColor(x, y);
-                    QColor color(255 - getColor.red(), 255 - getColor.green(),
-                                 255 - getColor.blue());
-                    img.setPixelColor(x, y, color);
-                }
+    if (ImageSign == 1) {  // 负片
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                QColor getColor = img.pixelColor(x, y);
+                QColor color(255 - getColor.red(), 255 - getColor.green(),
+                             255 - getColor.blue());
+                img.setPixelColor(x, y, color);
             }
-            break;
-        case 2:  // 灰度
-            for (long int y = 0; y < img.height(); y++) {
-                for (long int x = 0; x < img.width(); x++) {
-                    QColor getColor = img.pixelColor(x, y);
-                    long int tmp = getColor.red() + 0.59 * getColor.green() +
-                                   0.11 * getColor.blue();
-                    double t = tmp / 3;
+        }
+    } else if (ImageSign == 2) {  // 灰度
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                QColor getColor = img.pixelColor(x, y);
+                long int tmp = getColor.red() + 0.59 * getColor.green() +
+                               0.11 * getColor.blue();
+                double t = tmp / 3;
+                QColor color(t, t, t);
+                img.setPixelColor(x, y, color);
+            }
+        }
+    } else if (ImageSign == 3) {  // 3x3 卷积
+        img = image;
+        QImage copyImage = img.copy(0, 0, img.width(), img.height());
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                if (x == 0 || y == 0 || x == img.width() || y == img.height()) {
+                    int black = 0;
+                    img.setPixelColor(x, y, black);
+                } else {
+                    double ker_1 =
+                        ImageKerCalculator(copyImage, x - 1, y - 1, 0);
+                    double ker_2 =
+                        ImageKerCalculator(copyImage, x - 0, y - 1, -1);
+                    double ker_3 =
+                        ImageKerCalculator(copyImage, x + 1, y - 1, 0);
+                    double ker_4 =
+                        ImageKerCalculator(copyImage, x - 1, y - 0, -1);
+                    double ker_5 =
+                        ImageKerCalculator(copyImage, x - 0, y - 0, 5);
+                    double ker_6 =
+                        ImageKerCalculator(copyImage, x + 1, y - 0, -1);
+                    double ker_7 =
+                        ImageKerCalculator(copyImage, x - 1, y + 1, 0);
+                    double ker_8 =
+                        ImageKerCalculator(copyImage, x - 0, y + 1, -1);
+                    double ker_9 =
+                        ImageKerCalculator(copyImage, x + 1, y + 1, 0);
+                    double t = ker_1 + ker_2 + ker_3 + ker_4 + ker_5 + ker_6 +
+                               ker_7 + ker_8 + ker_9;
                     QColor color(t, t, t);
                     img.setPixelColor(x, y, color);
                 }
             }
-            break;
-        case 3:  // 3x3 卷积
-            img = image;
-            QImage copyImage = img.copy(0, 0, img.width(), img.height());
-            for (long int y = 0; y < img.height(); y++) {
-                for (long int x = 0; x < img.width(); x++) {
-                    if (x == 0 || y == 0 || x == img.width() ||
-                        y == img.height()) {
-                        int black = 0;
-                        img.setPixelColor(x, y, black);
-                    } else {
-                        double ker_1 =
-                            ImageKerCalculator(copyImage, x - 1, y - 1, 0);
-                        double ker_2 =
-                            ImageKerCalculator(copyImage, x - 0, y - 1, -1);
-                        double ker_3 =
-                            ImageKerCalculator(copyImage, x + 1, y - 1, 0);
-                        double ker_4 =
-                            ImageKerCalculator(copyImage, x - 1, y - 0, -1);
-                        double ker_5 =
-                            ImageKerCalculator(copyImage, x - 0, y - 0, 5);
-                        double ker_6 =
-                            ImageKerCalculator(copyImage, x + 1, y - 0, -1);
-                        double ker_7 =
-                            ImageKerCalculator(copyImage, x - 1, y + 1, 0);
-                        double ker_8 =
-                            ImageKerCalculator(copyImage, x - 0, y + 1, -1);
-                        double ker_9 =
-                            ImageKerCalculator(copyImage, x + 1, y + 1, 0);
-                        double t = ker_1 + ker_2 + ker_3 + ker_4 + ker_5 +
-                                   ker_6 + ker_7 + ker_8 + ker_9;
-                        QColor color(t, t, t);
-                        img.setPixelColor(x, y, color);
-                    }
-                }
+        }
+    } else if (ImageSign == 4) {  // 二值
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                QColor getColor = img.pixelColor(x, y);
+                long int tmp = getColor.red() + 0.59 * getColor.green() +
+                               0.11 * getColor.blue();
+                double t = ((tmp / 3) > (128)) ? 255 : 0;
+                QColor color(t, t, t);
+                img.setPixelColor(x, y, color);
             }
-            break;
-        case 4:  // 二值
-            img = image;
-            for (long int y = 0; y < img.height(); y++) {
-                for (long int x = 0; x < img.width(); x++) {
-                    QColor getColor = img.pixelColor(x, y);
-                    long int tmp = getColor.red() + 0.59 * getColor.green() +
-                                   0.11 * getColor.blue();
-                    double t = ((tmp / 3) > (128)) ? 255 : 0;
-
-                    QColor color(t, t, t);
-                    img.setPixelColor(x, y, color);
-                }
-            }
-            break;
-            //        default:
-            //        qDebug()<<"null";
-            //        break;
+        }
     }
+
     ui->label->setPixmap(QPixmap::fromImage(img));
     setGeometry(x(), y(), img.width(), img.height());
     ui->label->setGeometry(0, 0, img.width(), img.height());
