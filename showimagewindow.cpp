@@ -60,6 +60,7 @@ void ShowImageWindow::getImage(QImage image, int ImageSign) {
             }
             break;
         case 3:  // 3x3 卷积
+            img = image;
             QImage copyImage = img.copy(0, 0, img.width(), img.height());
             for (long int y = 0; y < img.height(); y++) {
                 for (long int x = 0; x < img.width(); x++) {
@@ -95,6 +96,7 @@ void ShowImageWindow::getImage(QImage image, int ImageSign) {
             }
             break;
         case 4:  // 二值
+            img = image;
             for (long int y = 0; y < img.height(); y++) {
                 for (long int x = 0; x < img.width(); x++) {
                     QColor getColor = img.pixelColor(x, y);
