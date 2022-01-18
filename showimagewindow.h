@@ -15,7 +15,7 @@ class ShowImageWindow : public QWidget {
     void mouseMoveEvent(QMouseEvent*);
 
    public slots:
-    void getImage(QImage, int, int);
+    void getImage(QImage, int, int,QList<int>);
     void ChangeColorByBit(QPoint);
 
    signals:

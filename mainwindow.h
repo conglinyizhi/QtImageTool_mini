@@ -30,9 +30,10 @@ public slots:
     void displayImage(int,QImage);
     void saveImage();
     void OpenImage();
+    void changeValue(int);
 
 signals:
-    void sendImage(QImage,int,int);
+    void sendImage(QImage,int,int,QList<int>);
 
 
 private:

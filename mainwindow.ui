@@ -6,30 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
-    <height>554</height>
+    <width>550</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
-    <height>400</height>
+    <width>550</width>
+    <height>550</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <widget class="QVideoWidget" name="widget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QVideoWidget" name="widget" native="true"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="0" column="1">
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -79,6 +97,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QRadioButton" name="ImageRadio_bit_2">
+        <property name="text">
+         <string>二值卷积</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -96,7 +121,7 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0" colspan="2">
+    <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -121,9 +146,9 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="openImage">
+         <widget class="QPushButton" name="buttonSave">
           <property name="text">
-           <string>打开</string>
+           <string>预览</string>
           </property>
          </widget>
         </item>
@@ -141,9 +166,9 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="buttonSave">
+         <widget class="QPushButton" name="openImage">
           <property name="text">
-           <string>诶嘿</string>
+           <string>打开</string>
           </property>
          </widget>
         </item>
@@ -164,6 +189,24 @@
          <widget class="QPushButton" name="buttonQuit">
           <property name="text">
            <string>退出</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_2">
+          <property name="text">
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>
@@ -200,7 +243,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="valueShow">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -225,6 +268,82 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="1">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>卷积核控制器</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QSpinBox" name="K1">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="K1_2">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QSpinBox" name="K1_3">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QSpinBox" name="K1_4">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="K1_5">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QSpinBox" name="K1_6">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QSpinBox" name="K1_7">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="K1_8">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QSpinBox" name="K1_9">
+           <property name="minimum">
+            <number>-99</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -232,7 +351,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>643</width>
+     <width>550</width>
      <height>26</height>
     </rect>
    </property>

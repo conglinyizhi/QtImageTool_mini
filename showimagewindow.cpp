@@ -41,7 +41,7 @@ double ShowImageWindow::ImageKerCalculatorBit(QImage t_img,
                                               int w) {
     return t_img.pixelColor(x, y).red() * w;
 }
-void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
+void ShowImageWindow::getImage(QImage image, int ImageSign, int value,QList<int> list) {
     img = image;
     if (ImageSign == 1) {  // 负片
         for (long int y = 0; y < img.height(); y++) {
@@ -73,23 +73,23 @@ void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
                     img.setPixelColor(x, y, black);
                 } else {
                     double ker_1 =
-                        ImageKerCalculator(copyImage, x - 1, y - 1, 0);
+                        ImageKerCalculator(copyImage, x - 1, y - 1, list[0]);
                     double ker_2 =
-                        ImageKerCalculator(copyImage, x - 0, y - 1, -1);
+                        ImageKerCalculator(copyImage, x - 0, y - 1, list[1]);
                     double ker_3 =
-                        ImageKerCalculator(copyImage, x + 1, y - 1, 0);
+                        ImageKerCalculator(copyImage, x + 1, y - 1, list[2]);
                     double ker_4 =
-                        ImageKerCalculator(copyImage, x - 1, y - 0, -1);
+                        ImageKerCalculator(copyImage, x - 1, y - 0, list[3]);
                     double ker_5 =
-                        ImageKerCalculator(copyImage, x - 0, y - 0, 5);
+                        ImageKerCalculator(copyImage, x - 0, y - 0, list[4]);
                     double ker_6 =
-                        ImageKerCalculator(copyImage, x + 1, y - 0, -1);
+                        ImageKerCalculator(copyImage, x + 1, y - 0, list[5]);
                     double ker_7 =
-                        ImageKerCalculator(copyImage, x - 1, y + 1, 0);
+                        ImageKerCalculator(copyImage, x - 1, y + 1, list[6]);
                     double ker_8 =
-                        ImageKerCalculator(copyImage, x - 0, y + 1, -1);
+                        ImageKerCalculator(copyImage, x - 0, y + 1, list[7]);
                     double ker_9 =
-                        ImageKerCalculator(copyImage, x + 1, y + 1, 0);
+                        ImageKerCalculator(copyImage, x + 1, y + 1, list[8]);
                     double t = ker_1 + ker_2 + ker_3 + ker_4 + ker_5 + ker_6 +
                                ker_7 + ker_8 + ker_9;
                     QColor color(t, t, t);
@@ -120,34 +120,35 @@ void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
             }
         }
         QImage copyImage = img.copy(0, 0, img.width(), img.height());
-        for (long int y = 0; y < img.height(); y++) {
-            for (long int x = 0; x < img.width(); x++) {
-                if (x == 0 || y == 0 || x == img.width() || y == img.height()) {
+        for (long int y2 = 0; y2 < img.height(); y2++) {
+            for (long int x2 = 0; x2 < img.width(); x2++) {
+                if (x2 == 0 || y2 == 0 || x2 == img.width() ||
+                    y2 == img.height()) {
                     int black = 0;
-                    img.setPixelColor(x, y, black);
+                    img.setPixelColor(x2, y2, black);
                 } else {
                     double ker_1 =
-                        ImageKerCalculatorBit(copyImage, x - 1, y - 1, 0);
+                        ImageKerCalculatorBit(copyImage, x2 - 1, y2 - 1, list[0]);
                     double ker_2 =
-                        ImageKerCalculatorBit(copyImage, x - 0, y - 1, -1);
+                        ImageKerCalculatorBit(copyImage, x2 - 0, y2 - 1, list[1]);
                     double ker_3 =
-                        ImageKerCalculatorBit(copyImage, x + 1, y - 1, 0);
+                        ImageKerCalculatorBit(copyImage, x2 + 1, y2 - 1, list[2]);
                     double ker_4 =
-                        ImageKerCalculatorBit(copyImage, x - 1, y - 0, -1);
+                        ImageKerCalculatorBit(copyImage, x2 - 1, y2 - 0, list[3]);
                     double ker_5 =
-                        ImageKerCalculatorBit(copyImage, x - 0, y - 0, 5);
+                        ImageKerCalculatorBit(copyImage, x2 - 0, y2 - 0, list[4]);
                     double ker_6 =
-                        ImageKerCalculatorBit(copyImage, x + 1, y - 0, -1);
+                        ImageKerCalculatorBit(copyImage, x2 + 1, y2 - 0, list[5]);
                     double ker_7 =
-                        ImageKerCalculatorBit(copyImage, x - 1, y + 1, 0);
+                        ImageKerCalculatorBit(copyImage, x2 - 1, y2 + 1, list[6]);
                     double ker_8 =
-                        ImageKerCalculatorBit(copyImage, x - 0, y + 1, -1);
+                        ImageKerCalculatorBit(copyImage, x2 - 0, y2 + 1, list[7]);
                     double ker_9 =
-                        ImageKerCalculatorBit(copyImage, x + 1, y + 1, 0);
+                        ImageKerCalculatorBit(copyImage, x2 + 1, y2 + 1, list[8]);
                     double t = ker_1 + ker_2 + ker_3 + ker_4 + ker_5 + ker_6 +
                                ker_7 + ker_8 + ker_9;
                     QColor color(t, t, t);
-                    img.setPixelColor(x, y, color);
+                    img.setPixelColor(x2, y2, color);
                 }
             }
         }
