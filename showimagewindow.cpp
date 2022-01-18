@@ -14,6 +14,11 @@ ShowImageWindow::~ShowImageWindow()
 }
 
 void ShowImageWindow::getImage(QImage i){
-    ui->label->setPixmap(QPixmap::fromImage(i));
+    QImage c = i;
+    c.setPixel(10,10,0x66ccff);
+    for(int pixStart = 0;pixStart < 255;pixStart ++){
+        c.setPixel(pixStart,pixStart,0x66ccff);
+    }
+    ui->label->setPixmap(QPixmap::fromImage(c));
     ui->label->setScaledContents(true);
 }
