@@ -34,7 +34,7 @@ double ShowImageWindow::ImageKerCalculator(QImage t_img,
     return (c.red() + 0.59 * c.green() + 0.11 * c.blue()) / 3 * w;
 }
 
-void ShowImageWindow::getImage(QImage image, int ImageSign) {
+void ShowImageWindow::getImage(QImage image, int ImageSign,int value) {
     img = image;
     if (ImageSign == 1) {  // 负片
         for (long int y = 0; y < img.height(); y++) {
@@ -96,7 +96,18 @@ void ShowImageWindow::getImage(QImage image, int ImageSign) {
                 QColor getColor = img.pixelColor(x, y);
                 long int tmp = getColor.red() + 0.59 * getColor.green() +
                                0.11 * getColor.blue();
-                double t = ((tmp / 3) > (128)) ? 255 : 0;
+                double t = ((tmp / 3) > (value)) ? 255 : 0;
+                QColor color(t, t, t);
+                img.setPixelColor(x, y, color);
+            }
+        }
+    } else if (ImageSign == 4) {  // 二值卷积
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                QColor getColor = img.pixelColor(x, y);
+                long int tmp = getColor.red() + 0.59 * getColor.green() +
+                               0.11 * getColor.blue();
+                double t = ((tmp / 3) > (value)) ? 255 : 0;
                 QColor color(t, t, t);
                 img.setPixelColor(x, y, color);
             }

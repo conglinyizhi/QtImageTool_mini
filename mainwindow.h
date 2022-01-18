@@ -32,7 +32,7 @@ public slots:
     void OpenImage();
 
 signals:
-    void sendImage(QImage,int);
+    void sendImage(QImage,int,int);
 
 
 private:

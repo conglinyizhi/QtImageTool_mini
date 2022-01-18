@@ -40,20 +40,20 @@ void MainWindow::displayImage(int , QImage image)
 {
     showImageWindow = new ShowImageWindow();
     showImageWindow->show();
-    connect(this,SIGNAL(sendImage(QImage,int)),showImageWindow,SLOT(getImage(QImage,int)));
+    connect(this,SIGNAL(sendImage(QImage,int,int)),showImageWindow,SLOT(getImage(QImage,int,int)));
     if(ui->ImageRadio_Negative->isChecked()){
-        emit sendImage(image,1);
+        emit sendImage(image,1,0);
     }else if(ui->ImageRadio_gray->isChecked()){
-        emit sendImage(image,2);
+        emit sendImage(image,2,0);
     }else if(ui->ImageRadio_test->isChecked()){
-        emit sendImage(image,3);
+        emit sendImage(image,3,0);
     }else if(ui->ImageRadio_bit->isChecked()){
-        emit sendImage(image,4);
+        emit sendImage(image,4,ui->value->value());
     }else{
-        emit sendImage(image,0);
+        emit sendImage(image,0,0);
     }
 
-    disconnect(this,SIGNAL(sendImage(QImage,int)),showImageWindow,SLOT(getImage(QImage,int)));
+    disconnect(this,SIGNAL(sendImage(QImage,int,int)),showImageWindow,SLOT(getImage(QImage,int,int)));
 }
 
 void MainWindow::saveImage()

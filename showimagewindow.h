@@ -16,7 +16,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *);
 
 public slots:
-    void getImage(QImage,int);
+    void getImage(QImage,int,int);
     void ChangeColorByBit(QPoint);
 
 signals:
@@ -25,7 +25,6 @@ signals:
 public:
     explicit ShowImageWindow(QWidget *parent = nullptr);
     ~ShowImageWindow();
-//    QImage ImageCalculatorModel(QImage img,int mode);
     double ImageKerCalculator(QImage img,long int x,long int y,int w);
 private:
     Ui::ShowImageWindow *ui;
