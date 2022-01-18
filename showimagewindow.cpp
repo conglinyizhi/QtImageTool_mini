@@ -26,6 +26,7 @@ void ShowImageWindow::mousePressEvent(QMouseEvent*) {
 ShowImageWindow::~ShowImageWindow() {
     delete ui;
 }
+
 double ShowImageWindow::ImageKerCalculator(QImage t_img,
                                            long int x,
                                            long int y,
@@ -34,7 +35,13 @@ double ShowImageWindow::ImageKerCalculator(QImage t_img,
     return (c.red() + 0.59 * c.green() + 0.11 * c.blue()) / 3 * w;
 }
 
-void ShowImageWindow::getImage(QImage image, int ImageSign,int value) {
+double ShowImageWindow::ImageKerCalculatorBit(QImage t_img,
+                                              long int x,
+                                              long int y,
+                                              int w) {
+    return t_img.pixelColor(x, y) * w;
+}
+void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
     img = image;
     if (ImageSign == 1) {  // 负片
         for (long int y = 0; y < img.height(); y++) {
@@ -112,8 +119,39 @@ void ShowImageWindow::getImage(QImage image, int ImageSign,int value) {
                 img.setPixelColor(x, y, color);
             }
         }
+        QImage copyImage = img.copy(0, 0, img.width(), img.height());
+        for (long int y = 0; y < img.height(); y++) {
+            for (long int x = 0; x < img.width(); x++) {
+                if (x == 0 || y == 0 || x == img.width() || y == img.height()) {
+                    int black = 0;
+                    img.setPixelColor(x, y, black);
+                } else {
+                    double ker_1 =
+                        ImageKerCalculatorBit(copyImage, x - 1, y - 1, 0);
+                    double ker_2 =
+                        ImageKerCalculatorBit(copyImage, x - 0, y - 1, -1);
+                    double ker_3 =
+                        ImageKerCalculatorBit(copyImage, x + 1, y - 1, 0);
+                    double ker_4 =
+                        ImageKerCalculatorBit(copyImage, x - 1, y - 0, -1);
+                    double ker_5 =
+                        ImageKerCalculatorBit(copyImage, x - 0, y - 0, 5);
+                    double ker_6 =
+                        ImageKerCalculatorBit(copyImage, x + 1, y - 0, -1);
+                    double ker_7 =
+                        ImageKerCalculatorBit(copyImage, x - 1, y + 1, 0);
+                    double ker_8 =
+                        ImageKerCalculatorBit(copyImage, x - 0, y + 1, -1);
+                    double ker_9 =
+                        ImageKerCalculatorBit(copyImage, x + 1, y + 1, 0);
+                    double t = ker_1 + ker_2 + ker_3 + ker_4 + ker_5 + ker_6 +
+                               ker_7 + ker_8 + ker_9;
+                    QColor color(t, t, t);
+                    img.setPixelColor(x, y, color);
+                }
+            }
+        }
     }
-
     ui->label->setPixmap(QPixmap::fromImage(img));
     setGeometry(x(), y(), img.width(), img.height());
     ui->label->setGeometry(0, 0, img.width(), img.height());
