@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>804</width>
-    <height>644</height>
+    <width>832</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -39,22 +39,34 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>153</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>114</width>
-         <height>534</height>
+         <width>153</width>
+         <height>549</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <layout class="QGridLayout" name="_2">
         <property name="leftMargin">
          <number>2</number>
         </property>
@@ -69,6 +81,9 @@
         </property>
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
@@ -77,23 +92,37 @@
            </widget>
           </item>
           <item>
+           <widget class="QRadioButton" name="radioButton_2">
+            <property name="text">
+             <string>啥也不算</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QRadioButton" name="ImageRadio_Negative">
             <property name="text">
-             <string>负片处理</string>
+             <string>负片</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QRadioButton" name="ImageRadio_gray">
             <property name="text">
-             <string>灰度算法</string>
+             <string>灰度</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QRadioButton" name="ImageRadio_test">
             <property name="text">
-             <string>卷积测试</string>
+             <string>卷积锐化</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="ImageRadio_bit">
+            <property name="text">
+             <string>图像二值</string>
             </property>
            </widget>
           </item>
@@ -194,7 +223,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>804</width>
+     <width>832</width>
      <height>26</height>
     </rect>
    </property>

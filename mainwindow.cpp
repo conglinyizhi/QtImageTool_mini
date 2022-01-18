@@ -47,6 +47,8 @@ void MainWindow::displayImage(int , QImage image)
         emit sendImage(image,2);
     }else if(ui->ImageRadio_test->isChecked()){
         emit sendImage(image,3);
+    }else if(ui->ImageRadio_bit->isChecked()){
+        emit sendImage(image,4);
     }else{
         emit sendImage(image,0);
     }
