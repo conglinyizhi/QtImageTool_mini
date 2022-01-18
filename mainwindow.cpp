@@ -11,14 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
     viewfinder=new QCameraViewfinder(this);
     imageCapture=new QCameraImageCapture(camera);
 
-
-    ui->ImageCapture->setScaledContents(true);
-
+//    viewfinder->setGeometry(frameGeometry());
+//    viewfinder->setStyleSheet(QString("background:#6cf"));
+    ui->view->addWidget(viewfinder);
     camera->setViewfinder(viewfinder);
     camera->start();
 
     connect(imageCapture, SIGNAL(imageCaptured(int,QImage)), this, SLOT(displayImage(int,QImage)));
-
     connect(ui->buttonCapture, SIGNAL(clicked()), this, SLOT(captureImage()));
     connect(ui->buttonSave, SIGNAL(clicked()), this, SLOT(saveImage()));
     connect(ui->buttonQuit, SIGNAL(clicked()), qApp, SLOT(quit()));
