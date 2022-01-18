@@ -11,9 +11,15 @@ class ShowImageWindow;
 class ShowImageWindow : public QWidget
 {
     Q_OBJECT
-
+protected:
+    void mousePressEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
 public slots:
-    void getImage(QImage);
+    void getImage(QImage,int);
+    void ChangeColorByBit(QPoint);
+
+signals:
+    void SendChange(QPoint);
 
 public:
     explicit ShowImageWindow(QWidget *parent = nullptr);
@@ -21,7 +27,7 @@ public:
 
 private:
     Ui::ShowImageWindow *ui;
-    QImage *img;
+    QImage img;
 };
 
 #endif // SHOWIMAGEWINDOW_H

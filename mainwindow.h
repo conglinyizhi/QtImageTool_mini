@@ -29,9 +29,10 @@ public slots:
     void captureImage();
     void displayImage(int,QImage);
     void saveImage();
+    void OpenImage();
 
 signals:
-    void sendImage(QImage);
+    void sendImage(QImage,int);
 
 
 private:

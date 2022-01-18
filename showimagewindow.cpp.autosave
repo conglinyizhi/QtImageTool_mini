@@ -30,6 +30,16 @@ ShowImageWindow::~ShowImageWindow()
 void ShowImageWindow::getImage(QImage i,int ImageSign){
     img = i;
     switch(ImageSign){
+        case 2:
+            for(long int y = 0;y<img.height();y++){
+                for(long int x = 0;x<img.width();x++){
+                    QColor getColor = img.pixelColor(x,y);
+                    QColor color(255 - getColor.red(),255 - getColor.green(),255 - getColor.blue());
+                    QRgb
+//                    img.setPixelColor(x,y,);
+                }
+            }
+        break;
         case 1:
             for(long int y = 0;y<img.height();y++){
                 for(long int x = 0;x<img.width();x++){

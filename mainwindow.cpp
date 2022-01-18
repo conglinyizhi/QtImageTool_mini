@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->buttonCapture, SIGNAL(clicked()), this, SLOT(captureImage()));
     connect(ui->buttonSave, SIGNAL(clicked()), this, SLOT(saveImage()));
     connect(ui->buttonQuit, SIGNAL(clicked()), qApp, SLOT(quit()));
+    connect(ui->openImage,SIGNAL(clicked()),this,SLOT(OpenImage()));
 }
 
 MainWindow::~MainWindow()
@@ -39,9 +40,14 @@ void MainWindow::displayImage(int , QImage image)
 {
     showImageWindow = new ShowImageWindow();
     showImageWindow->show();
-    connect(this,SIGNAL(sendImage(QImage)),showImageWindow,SLOT(getImage(QImage)));
-    emit sendImage(image);
-    disconnect(this,SIGNAL(sendImage(QImage)),showImageWindow,SLOT(getImage(QImage)));
+    connect(this,SIGNAL(sendImage(QImage,int)),showImageWindow,SLOT(getImage(QImage,int)));
+    if(ui->ImageCheckbox_Negative->isChecked()){
+        emit sendImage(image,1);
+    }else{
+        emit sendImage(image,0);
+    }
+
+    disconnect(this,SIGNAL(sendImage(QImage,int)),showImageWindow,SLOT(getImage(QImage,int)));
 }
 
 void MainWindow::saveImage()
@@ -58,3 +64,11 @@ void MainWindow::saveImage()
 //}
 }
 
+void MainWindow::OpenImage(){
+    QString f = QFileDialog::getOpenFileName(this,"选择一个图像文件","","所有支持的图形文件(*.png *.jpg *.jpeg *.bmp)");
+    if(!f.isEmpty()){
+        QImage i;
+        i.load(f);
+        emit displayImage(0,i);
+    }
+}
