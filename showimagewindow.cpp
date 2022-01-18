@@ -39,7 +39,7 @@ double ShowImageWindow::ImageKerCalculatorBit(QImage t_img,
                                               long int x,
                                               long int y,
                                               int w) {
-    return t_img.pixelColor(x, y) * w;
+    return t_img.pixelColor(x, y).red() * w;
 }
 void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
     img = image;
@@ -108,7 +108,7 @@ void ShowImageWindow::getImage(QImage image, int ImageSign, int value) {
                 img.setPixelColor(x, y, color);
             }
         }
-    } else if (ImageSign == 4) {  // 二值卷积
+    } else if (ImageSign == 5) {  // 二值卷积
         for (long int y = 0; y < img.height(); y++) {
             for (long int x = 0; x < img.width(); x++) {
                 QColor getColor = img.pixelColor(x, y);
