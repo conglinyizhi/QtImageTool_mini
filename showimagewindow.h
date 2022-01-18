@@ -25,7 +25,7 @@ signals:
 public:
     explicit ShowImageWindow(QWidget *parent = nullptr);
     ~ShowImageWindow();
-    QImage ImageCalculatorModel(QImage img,int mode);
+//    QImage ImageCalculatorModel(QImage img,int mode);
     double ImageKerCalculator(QImage img,long int x,long int y,int w);
 private:
     Ui::ShowImageWindow *ui;

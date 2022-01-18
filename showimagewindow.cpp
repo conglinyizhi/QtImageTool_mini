@@ -26,13 +26,18 @@ ShowImageWindow::~ShowImageWindow()
 {
     delete ui;
 }
-double ImageKerCalculator(QImage t_img,long int x,long int y,int w){
+double ShowImageWindow::ImageKerCalculator(QImage t_img,long int x,long int y,int w){
     QColor c = t_img.pixelColor(x,y);
     return (c.red() + 0.59 * c.green()+ 0.11 * c.blue())/3 * w;
 }
 
-QImage ImageCalculatorModel(QImage img,int mode){
-    switch(mode){
+//QImage ImageCalculatorModel(QImage img,int mode){
+//    return img;
+//}
+
+void ShowImageWindow::getImage(QImage image,int ImageSign){
+    img = image;
+    switch(ImageSign){
         case 1:  // 负片
             for(long int y = 0;y<img.height();y++){
                 for(long int x = 0;x<img.width();x++){
@@ -54,21 +59,22 @@ QImage ImageCalculatorModel(QImage img,int mode){
             }
         break;
         case 3: // 3x3 卷积
+        QImage copyImage = img.copy(0,0,img.width(),img.height());
         for(long int y = 0;y<img.height();y++){
             for(long int x = 0;x<img.width();x++){
                 if(x == 0 || y == 0 || x == img.width() || y == img.height()){
                     int black = 0;
                     img.setPixelColor(x,y,black);
                 }else{
-                    double ker_1 = ImageKerCalculator(img,x-1,y-1,0);
-                    double ker_2 = ImageKerCalculator(img,x-0,y-1,-1);
-                    double ker_3 = ImageKerCalculator(img,x+1,y-1,0);
-                    double ker_4 = ImageKerCalculator(img,x-1,y-0,-1);
-                    double ker_5 = ImageKerCalculator(img,x-0,y-0,5);
-                    double ker_6 = ImageKerCalculator(img,x+1,y-0,-1);
-                    double ker_7 = ImageKerCalculator(img,x-1,y+1,0);
-                    double ker_8 = ImageKerCalculator(img,x-0,y+1,-1);
-                    double ker_9 = ImageKerCalculator(img,x+1,y+1,0);
+                    double ker_1 = ImageKerCalculator(copyImage,x-1,y-1,0);
+                    double ker_2 = ImageKerCalculator(copyImage,x-0,y-1,-1);
+                    double ker_3 = ImageKerCalculator(copyImage,x+1,y-1,0);
+                    double ker_4 = ImageKerCalculator(copyImage,x-1,y-0,-1);
+                    double ker_5 = ImageKerCalculator(copyImage,x-0,y-0,5);
+                    double ker_6 = ImageKerCalculator(copyImage,x+1,y-0,-1);
+                    double ker_7 = ImageKerCalculator(copyImage,x-1,y+1,0);
+                    double ker_8 = ImageKerCalculator(copyImage,x-0,y+1,-1);
+                    double ker_9 = ImageKerCalculator(copyImage,x+1,y+1,0);
                     double t = ker_1+ker_2+ker_3+ker_4+ker_5+ker_6+ker_7+ker_8+ker_9;
                     QColor color(t,t,t);
                     img.setPixelColor(x,y,color);
@@ -76,14 +82,10 @@ QImage ImageCalculatorModel(QImage img,int mode){
 
             }
         }
+        break;
         default:
         break;
     }
-    return img;
-}
-
-void ShowImageWindow::getImage(QImage i,int ImageSign){
-    img = ImageCalculatorModel(i,ImageSign);
     ui->label->setPixmap(QPixmap::fromImage(img));
     setGeometry(x(),y(),img.width(),img.height());
     ui->label->setGeometry(0,0,img.width(),img.height());
