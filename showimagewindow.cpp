@@ -1,4 +1,4 @@
-#include "showimagewindow.h"
+﻿#include "showimagewindow.h"
 #include <QDebug>
 #include "ui_showimagewindow.h"
 ShowImageWindow::ShowImageWindow(QWidget* parent)
@@ -42,7 +42,7 @@ double ShowImageWindow::ImageKerCalculatorBit(QImage t_img,
     return t_img.pixelColor(x, y).red() * w;
 }
 void ShowImageWindow::getImage(QImage image, int ImageSign, int value,QList<int> list) {
-    setWindowTitle(tr("计算中……"));
+    setWindowTitle(QString("计算中……"));
     img = image;
     if (ImageSign == 1) {  // 负片
         for (long int y = 0; y < img.height(); y++) {

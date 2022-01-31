@@ -1,5 +1,7 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QBitmap>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -14,9 +16,7 @@ MainWindow::MainWindow(QWidget* parent)
     //    ui->view->addWidget(viewfinder);
     camera->setViewfinder(ui->widget);
     camera->start();
-
-    connect(imageCapture, SIGNAL(imageCaptured(int, QImage)), this,
-            SLOT(displayImage(int, QImage)));
+    connect(imageCapture, SIGNAL(imageCaptured(int,QImage)), this,SLOT(displayImage(int,QImage)));
     connect(ui->buttonCapture, SIGNAL(clicked()), this, SLOT(captureImage()));
     connect(ui->buttonSave, SIGNAL(clicked()), this, SLOT(saveImage()));
     connect(ui->buttonQuit, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -34,6 +34,8 @@ void MainWindow::captureImage() {
 }
 
 void MainWindow::displayImage(int, QImage image) {
+    QBitmap b = QBitmap::fromImage(image);
+    ui->label_2->setPixmap(b);
     showImageWindow = new ShowImageWindow();
     showImageWindow->show();
     QList<int> data;
@@ -80,9 +82,7 @@ void MainWindow::saveImage() {
 }
 
 void MainWindow::OpenImage() {
-    QString f = QFileDialog::getOpenFileName(
-        this, "选择一个图像文件", "",
-        "所有支持的图形文件(*.png *.jpg *.jpeg *.bmp)");
+    QString f = QFileDialog::getOpenFileName(this, "选择一个图像文件", "","所有支持的图形文件(*.png *.jpg *.jpeg *.bmp)");
     if (!f.isEmpty()) {
         QImage i;
         i.load(f);
