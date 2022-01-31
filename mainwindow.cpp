@@ -35,7 +35,7 @@ void MainWindow::captureImage() {
 
 void MainWindow::displayImage(int, QImage image) {
     QBitmap b = QBitmap::fromImage(image);
-    ui->label_2->setPixmap(b);
+    ui->image1->setPixmap(b);
     showImageWindow = new ShowImageWindow();
     showImageWindow->show();
     QList<int> data;
