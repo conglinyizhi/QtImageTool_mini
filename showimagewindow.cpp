@@ -42,6 +42,7 @@ double ShowImageWindow::ImageKerCalculatorBit(QImage t_img,
     return t_img.pixelColor(x, y).red() * w;
 }
 void ShowImageWindow::getImage(QImage image, int ImageSign, int value,QList<int> list) {
+    setWindowTitle(tr("计算中……"));
     img = image;
     if (ImageSign == 1) {  // 负片
         for (long int y = 0; y < img.height(); y++) {
@@ -156,6 +157,7 @@ void ShowImageWindow::getImage(QImage image, int ImageSign, int value,QList<int>
     ui->label->setPixmap(QPixmap::fromImage(img));
     setGeometry(x(), y(), img.width(), img.height());
     ui->label->setGeometry(0, 0, img.width(), img.height());
+    setWindowTitle(tr("计算完成"));
 }
 
 void ShowImageWindow::ChangeColorByBit(QPoint p) {
